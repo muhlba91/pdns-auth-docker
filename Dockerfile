@@ -1,12 +1,12 @@
 # basic container
-FROM alpine:edge
+FROM alpine:3.12
 
 # labels
 LABEL maintainer "Daniel Muehlbachler-Pietrzykowski daniel.muehlbachler@niftyside.com"
 LABEL name "PowerDNS with PostgreSQL backend"
 
 # config
-ENV POWERDNS_VERSION "4.3.1-r3"
+ENV POWERDNS_VERSION "4.2.3-r0"
 
 # install pdns
 RUN apk update \
@@ -18,6 +18,7 @@ RUN apk update \
     pdns=$POWERDNS_VERSION \
     pdns-backend-pgsql=$POWERDNS_VERSION \
     pdns-doc=$POWERDNS_VERSION \
+    pdns-tools=$POWERDNS_VERSION \
   && rm -rf /var/cache/apk/*
 
 # assets
@@ -30,7 +31,7 @@ ENV PGSQL_HOST="postgres" \
     PGSQL_USER="postgres" \
     PGSQL_PASS="postgres" \
     PGSQL_DB="pdns" \
-    PGSQL_VERSION="4.3.1" \
+    PGSQL_VERSION="4.2.0" \
     SCHEMA_VERSION_TABLE="_schema_version"
 
 # expose and entrypoint

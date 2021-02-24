@@ -10,14 +10,14 @@ set -e
 [ "${1:0:2}" != "--" ] && exec "$@"
 
 # Set credentials to be imported into pdns.conf
-export PDNS_LOAD_MODULES=$PDNS_LOAD_MODULES,libgpgsqlbackend.so
-export PDNS_GPGSQL_HOST=${PDNS_GPGSQL_HOST:-$PGSQL_HOST}
-export PDNS_GPGSQL_PORT=${PDNS_GPGSQL_PORT:-$PGSQL_PORT}
-export PDNS_GPGSQL_USER=${PDNS_GPGSQL_USER:-$PGSQL_USER}
-export PDNS_GPGSQL_PASSWORD=${PDNS_GPGSQL_PASSWORD:-$PGSQL_PASS}
-export PDNS_GPGSQL_DBNAME=${PDNS_GPGSQL_DBNAME:-$PGSQL_DB}
-export PDNS_GPGSQL_DNSSEC=${PDNS_GPGSQL_DNSSEC:-$DNSSEC}
-export PGPASSWORD=$PDNS_GPGSQL_PASSWORD
+export PDNS_CONF_LOAD_MODULES=$PDNS_CONF_LOAD_MODULES,libgpgsqlbackend.so
+export PDNS_CONF_GPGSQL_HOST=${PDNS_CONF_GPGSQL_HOST:-$PGSQL_HOST}
+export PDNS_CONF_GPGSQL_PORT=${PDNS_CONF_GPGSQL_PORT:-$PGSQL_PORT}
+export PDNS_CONF_GPGSQL_USER=${PDNS_CONF_GPGSQL_USER:-$PGSQL_USER}
+export PDNS_CONF_GPGSQL_PASSWORD=${PDNS_CONF_GPGSQL_PASSWORD:-$PGSQL_PASS}
+export PDNS_CONF_GPGSQL_DBNAME=${PDNS_CONF_GPGSQL_DBNAME:-$PGSQL_DB}
+export PDNS_CONF_GPGSQL_DNSSEC=${PDNS_CONF_GPGSQL_DNSSEC:-$DNSSEC}
+export PGPASSWORD=$PDNS_CONF_GPGSQL_PASSWORD
 
 PGSQLCMD="psql --host=$PGSQL_HOST --username=$PGSQL_USER"
 
@@ -68,9 +68,9 @@ while true; do
   fi
 done
 
-# convert all environment variables prefixed with PDNS_ into pdns config directives
+# convert all environment variables prefixed with PDNS_CONF_ into pdns config directives
 PDNS_LOAD_MODULES="$(echo $PDNS_LOAD_MODULES | sed 's/^,//')"
-printenv | grep ^PDNS_ | cut -f2- -d_ | while read var; do
+printenv | grep ^PDNS_CONF_ | cut -f2- -d_ | while read var; do
   val="${var#*=}"
   var="${var%%=*}"
   var="$(echo $var | sed -e 's/_/-/g' | tr '[:upper:]' '[:lower:]')"

@@ -1,13 +1,14 @@
 ---
-name: Release
+name: Pull Request
 
 on:
-  push:
-    tags:
+  pull_request:
+    branches:
+      - master
 
 jobs:
   docker:
-    name: Release Docker Image
+    name: Build Docker Image
     runs-on: ubuntu-latest
 
     steps:
@@ -28,15 +29,9 @@ jobs:
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
 
-      - name: Build and Push
+      - name: Build
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm/v7
-          push: true
-          tags: muhlba91/pdns-auth:${{ env.GITHUB_REF_SLUG }}
-
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          name: ${{ env.GITHUB_REF_SLUG }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          push: false
+          tags: muhlba91/pdns-auth:latest

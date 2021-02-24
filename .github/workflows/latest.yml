@@ -1,13 +1,14 @@
 ---
-name: Release
+name: Release Latest
 
 on:
   push:
-    tags:
+    branches:
+      - master
 
 jobs:
   docker:
-    name: Release Docker Image
+    name: Release Latest Docker Image
     runs-on: ubuntu-latest
 
     steps:
@@ -33,10 +34,11 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm/v7
           push: true
-          tags: muhlba91/pdns-auth:${{ env.GITHUB_REF_SLUG }}
+          tags: muhlba91/pdns-auth:latest
 
-      - name: Release
-        uses: ncipollo/release-action@v1
+      - name: Update Description
+        uses: peter-evans/dockerhub-description@v2
         with:
-          name: ${{ env.GITHUB_REF_SLUG }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: muhlba91/pdns-auth

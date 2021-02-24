@@ -10,7 +10,7 @@ ENV POWERDNS_VERSION "4.3.1-r3"
 
 # install pdns
 RUN apk update \
-  && apk add --no-cache biber \
+  && apk add --no-cache \
     wget  \
     git \
     make \

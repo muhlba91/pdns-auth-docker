@@ -1,4 +1,4 @@
 # CHANGELOG
 
-## 4.4.1-0
- - PowerDNS 4.4.1
+## 4.3.1-r3
+ - PowerDNS 4.3.1-r3

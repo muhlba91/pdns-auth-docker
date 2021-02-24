@@ -19,7 +19,8 @@ RUN apk update \
     pdns-backend-pgsql=$POWERDNS_VERSION \
     pdns-doc=$POWERDNS_VERSION \
     pdns-tools=$POWERDNS_VERSION \
-  && rm -rf /var/cache/apk/*
+  && rm -rf /var/cache/apk/* \
+  && mkdir -p /etc/pdns/conf.d
 
 # assets
 ADD assets/pdns.conf /etc/pdns/

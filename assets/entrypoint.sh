@@ -70,7 +70,7 @@ done
 
 # convert all environment variables prefixed with PDNS_CONF_ into pdns config directives
 PDNS_LOAD_MODULES="$(echo $PDNS_LOAD_MODULES | sed 's/^,//')"
-printenv | grep ^PDNS_CONF_ | cut -f2- -d_ | while read var; do
+printenv | grep ^PDNS_CONF_ | cut -f3- -d_ | while read var; do
   val="${var#*=}"
   var="${var%%=*}"
   var="$(echo $var | sed -e 's/_/-/g' | tr '[:upper:]' '[:lower:]')"

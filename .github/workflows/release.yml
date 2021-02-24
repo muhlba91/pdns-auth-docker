@@ -30,7 +30,6 @@ jobs:
         uses: docker/build-push-action@v2
         if: github.ref == 'refs/heads/master'
         with:
-          context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: muhlba91/pdns-auth:latest
@@ -39,7 +38,6 @@ jobs:
         uses: docker/build-push-action@v2
         if: github.ref != 'refs/heads/master'
         with:
-          context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: muhlba91/pdns-auth:${{ env.GITHUB_REF_SLUG }}

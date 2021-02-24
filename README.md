@@ -1,6 +1,8 @@
 # PowerDNS Docker Container
 
-[![Build Status](https://travis-ci.org/muhlba91/pdns-auth-docker.svg?branch=master)](https://travis-ci.org/muhlba91/pdns-auth-docker)
+[![](https://img.shields.io/github/workflow/status/muhlba91/pdns-auth-docker/Release?style=for-the-badge)](https://github.com/muhlba91/pdns-auth-docker/actions)
+[![](https://img.shields.io/github/release-date/muhlba91/pdns-auth-docker?style=for-the-badge)](https://github.com/muhlba91/pdns-auth-docker/releases)
+[![](https://img.shields.io/docker/v/muhlba91/pdns-auth?style=for-the-badge)](https://hub.docker.com/r/muhlba91/pdns-auth)
 
 Taken and modified from [naps/docker-powerdns](https://github.com/naps/docker-powerdns) to support only:
 
@@ -12,13 +14,14 @@ Taken and modified from [naps/docker-powerdns](https://github.com/naps/docker-po
 ## Usage
 
 ```shell
-# Start a Postgres Container
+# start a postgresql container
 $ docker run -d \
   --name pdns-postgres \
   -e POSTGRES_PASSWORD=supersecret \
   -v $PWD/postgres-data:/var/lib/postgresql \
   postgres:9.6
 
+# start the powerdns container
 $ docker run --name pdns \
   --link pdns-postgres:postgres \
   -p 53:53 \

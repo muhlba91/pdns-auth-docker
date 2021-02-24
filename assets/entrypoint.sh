@@ -44,7 +44,7 @@ fi
 PGSQLCMD="$PGSQLCMD $PGSQL_DB"
 if [[ -z "$(printf '\dt' | $PGSQLCMD -qAt)" ]]; then
   echo Initializing Database
-  cat /etc/pdns/sql/schema.pgsql.sql | $PGSQLCMD
+  cat /usr/share/doc/pdns/schema.pgsql.sql | $PGSQLCMD
   INITIAL_DB_VERSION=$PGSQL_VERSION
 fi
 # init version database if necessary
@@ -58,7 +58,7 @@ fi
 while true; do
   current="$(echo "SELECT version FROM $SCHEMA_VERSION_TABLE ORDER BY id DESC LIMIT 1;" | $PGSQLCMD -qAt)"
   if [ "$current" != "$PGSQL_VERSION" ]; then
-    filename=/etc/pdns/sql/${current}_to_*_schema.pgsql.sql
+    filename=/usr/share/doc/pdns/${current}_to_*_schema.pgsql.sql
     echo "Applying Update $(basename $filename)"
     $PGSQLCMD < $filename
     current=$(basename $filename | sed -n 's/^[0-9.]\+_to_\([0-9.]\+\)_.*$/\1/p')

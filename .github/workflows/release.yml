@@ -49,3 +49,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: muhlba91/pdns-auth
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        if: github.ref != 'refs/heads/master'
+        with:
+          name: ${{ env.GITHUB_REF_SLUG }}
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -14,6 +14,7 @@ RUN apk update \
     wget  \
     git \
     make \
+    bash \
     pdns=$POWERDNS_VERSION \
     pdns-backend-pgsql=$POWERDNS_VERSION \
     pdns-doc=$POWERDNS_VERSION \

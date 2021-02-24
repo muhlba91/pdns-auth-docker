@@ -27,7 +27,7 @@ isDBup () {
 }
 
 RETRY=10
-until [ `isDBup` -eq 0 ] || [ $RETRY -le 0 ] ; do
+until [[ `isDBup` -eq 0 ]] || [ $RETRY -le 0 ] ; do
   echo "Waiting for database to come up"
   sleep 5
   RETRY=$(expr $RETRY - 1)

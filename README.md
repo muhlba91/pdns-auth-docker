@@ -28,7 +28,7 @@ $ docker run --name pdns \
   -p 53:53/udp \
   -e PGSQL_USER=postgres \
   -e PGSQL_PASS=supersecret \
-  muhlba91/pdns-auth \
+  naps/powerdns \
     --cache-ttl=120 \
     --allow-axfr-ips=127.0.0.1,123.1.2.3
 ```
@@ -50,7 +50,7 @@ $ docker run --name pdns \
 **PowerDNS Configuration:**
 
 Append the PowerDNS setting to the command as shown in the example above.
-See `docker run --rm muhlba91/pdns-auth --help`
+See `docker run --rm muhlba91/powerdns --help`
 
 ## Contributions
 

@@ -19,7 +19,7 @@ export PDNS_CONF_GPGSQL_DBNAME=${PDNS_CONF_GPGSQL_DBNAME:-$PGSQL_DB}
 export PDNS_CONF_GPGSQL_DNSSEC=${PDNS_CONF_GPGSQL_DNSSEC:-$DNSSEC}
 export PGPASSWORD=$PDNS_CONF_GPGSQL_PASSWORD
 
-PGSQLCMD="psql --host=$PGSQL_HOST --username=$PGSQL_USER"
+PGSQLCMD="psql --host=$PGSQL_HOST --username=$PGSQL_USER --dbname=$PGSQL_DB"
 
 # wait for Database come ready
 isDBup () {
@@ -37,11 +37,6 @@ if [ $RETRY -le 0 ]; then
   exit 1
 fi
 
-# init database and migrate database if necessary
-if [[ -z "$(echo "SELECT 1 FROM pg_database WHERE datname = '$PGSQL_DB'" | $PGSQLCMD -t)" ]]; then
-  echo "CREATE DATABASE $PGSQL_DB;" | $PGSQLCMD
-fi
-PGSQLCMD="$PGSQLCMD $PGSQL_DB"
 if [[ -z "$(printf '\dt' | $PGSQLCMD -qAt)" ]]; then
   echo Initializing Database
   cat /usr/share/doc/pdns/schema.pgsql.sql | $PGSQLCMD

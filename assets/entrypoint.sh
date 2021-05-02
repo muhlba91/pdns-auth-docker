@@ -37,6 +37,7 @@ if [ $RETRY -le 0 ]; then
   exit 1
 fi
 
+# init database if necessary
 if [[ -z "$(printf '\dt' | $PGSQLCMD -qAt)" ]]; then
   echo Initializing Database
   cat /usr/share/doc/pdns/schema.pgsql.sql | $PGSQLCMD
